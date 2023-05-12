@@ -9,13 +9,12 @@ export const GlobalStyles = createGlobalStyle`
         --color-white: #F7F7FF;
         --color-light-white: #f7f9fb;
         --color-gray: #fafafa;
-
         --color-blue: #0827F5;
-        --color-light-gray: #e2ebf2;
-        --color-yellow: #8B7803; //user
+        --color-light-gray: #8AA1AB;
+        --color-yellow: #FFCD29; //user
         --color-dark-red: #D60F01;
         --color-red: #6C0000;
-        --color-green: #1C4211; //visitor
+        --color-green: #4CC428; //visitor
 
         /* Font size */
         --font-extra-large: 60px;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StLoginContainer = styled.div`
+export const StSignupContainer = styled.div`
   width: 100vw; // vw - view width
   height: 100vh; //vh - view height
   display: flex;
@@ -8,13 +8,13 @@ export const StLoginContainer = styled.div`
   align-items: center;
 `;
 
-export const StLoginBox = styled.div`
+export const StSignupnBox = styled.div`
   width: 40%;
   height: 60%;
   background-color: rgba(52, 54, 56, 0.4);
 `;
 
-export const StLoginContents = styled.div`
+export const StSignupContents = styled.div`
   border: 2px solid var(--color-red);
   display: flex;
   flex-direction: column;
@@ -24,12 +24,12 @@ export const StLoginContents = styled.div`
   padding: 5px;
 `;
 
-export const StLoginHeader = styled.header`
+export const StSignupHeader = styled.header`
   color: var(--color-green);
-
-  h1 {
+  
+  h1{
     font-size: 40px;
-    -webkit-text-stroke: 0.5px var(--color-dark-black);
+    -webkit-text-stroke: .5px var(--color-dark-black);
     font-weight: var(--weight-bold);
   }
 `;
@@ -53,5 +53,7 @@ export const StInput = styled.input`
 export const StButtonsBox = styled.div`
   width: 80%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 `;

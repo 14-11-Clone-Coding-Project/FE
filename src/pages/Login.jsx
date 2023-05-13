@@ -13,9 +13,12 @@ import Button from "../components/Button/Button";
 
 function Login() {
   const navigate = useNavigate();
-  // const login = () =>{
-  //   navigate("/")
-  // }
+  
+  const loginhandler = () =>{
+    //if user logged in navigate to /
+    navigate("/")
+    //else navigate to /signup
+  }
 
   return (
     <StLoginContainer>
@@ -36,6 +39,7 @@ function Login() {
               fontSize="var(--font-medium)"
               padding="10px"
               paddingBlock="15px"
+              onClick={loginhandler}
             >
               로그인
             </Button>
@@ -44,6 +48,7 @@ function Login() {
               padding="10px"
               fontSize="var(--font-medium)"
               paddingBlock="15px"
+              onClick={()=> navigate("/signup")}
             >
               회원가입
             </Button>

@@ -5,6 +5,7 @@ import background from "../assets/img/background.jpg";
 export const GlobalStyles = createGlobalStyle`
     :root{
         /* Color */
+        --color-dark-black: #000000;
         --color-black: #343638;
         --color-white: #F7F7FF;
         --color-light-white: #f7f9fb;
@@ -46,7 +47,6 @@ export const GlobalStyles = createGlobalStyle`
 
     body{
         font-family: 'NeoDunggeunmo', 'NeoDunggeunmo Code';
-        background-color: var(--color-black);
         background: url(${background}) no-repeat;
         background-size: cover;
         color: var(--color-white);
@@ -58,6 +58,7 @@ export const GlobalStyles = createGlobalStyle`
         border: none;
         outline: none;
         padding: 0px;
+        font-family: 'NeoDunggeunmo', 'NeoDunggeunmo Code';
     }
 
     input {
@@ -66,6 +67,7 @@ export const GlobalStyles = createGlobalStyle`
         background-color: transparent;
         box-shadow: none;
         outline: none;
+        font-family: 'NeoDunggeunmo', 'NeoDunggeunmo Code';
     } 
 
     ul{

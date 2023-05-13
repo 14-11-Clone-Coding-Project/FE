@@ -56,7 +56,7 @@ export const StInputId = styled.input`
   width: 85%;
 `;
 
-export const StInputPassword = styled.input`
+export const StInput = styled.input`
   border: 2px solid var(--color-red);
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.8);

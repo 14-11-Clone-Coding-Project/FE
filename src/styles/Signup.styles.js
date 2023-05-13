@@ -42,7 +42,21 @@ export const StInputBox = styled.div`
   height: 35%;
 `;
 
-export const StInput = styled.input`
+export const StInputIdBox = styled.div`
+  border: 2px solid var(--color-red);
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  display: flex;
+`;
+
+export const StInputId = styled.input`
+  padding: 20px;
+  color: var(--color-green);
+  font-size: 20px;
+  width: 85%;
+`;
+
+export const StInputPassword = styled.input`
   border: 2px solid var(--color-red);
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.8);

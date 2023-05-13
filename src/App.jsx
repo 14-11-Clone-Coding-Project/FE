@@ -1,13 +1,16 @@
 import React from "react";
 import Router from "./shared/Router";
 import { GlobalStyles } from "./styles/GlobalStyles";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div>
-      <GlobalStyles/>
+    <QueryClientProvider client={queryClient}>
+      <GlobalStyles />
       <Router />
-    </div>
+    </QueryClientProvider>
   );
 }
 

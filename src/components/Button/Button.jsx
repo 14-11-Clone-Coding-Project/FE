@@ -9,6 +9,8 @@ function Button({
   paddingBlock,
   onClick,
   height,
+  border,
+  backgroundColor,
 }) {
   return (
     <StButton
@@ -18,6 +20,8 @@ function Button({
       paddingBlock={paddingBlock}
       onClick={onClick}
       height={height}
+      backgroundColor={backgroundColor}
+      border={border}
     >
       {children}
     </StButton>

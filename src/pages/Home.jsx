@@ -28,7 +28,13 @@ function Home() {
           <StChattingDisplay>채팅창</StChattingDisplay>
           <StChattingInput>
             <StInput />
-            <Button width="20%" height="100%" fontSize="var(--font-medium)">
+            <Button
+              width="20%"
+              height="100%"
+              fontSize="var(--font-medium)"
+              backgroundColor="rgba(0, 0, 0, 0.8)"
+              border="2px solid var(--color-red)"
+            >
               전송
             </Button>
           </StChattingInput>
@@ -47,10 +53,22 @@ function Home() {
         </StUserList>
 
         <StButtonsBox>
-          <Button width="50%" height="45%" fontSize="var(--font-medium)">
+          <Button
+            width="50%"
+            height="45%"
+            fontSize="var(--font-medium)"
+            backgroundColor="rgba(0, 0, 0, 0.8)"
+            border="2px solid var(--color-red)"
+          >
             버그신고
           </Button>
-          <Button width="50%" height="45%" fontSize="var(--font-medium)">
+          <Button
+            width="50%"
+            height="45%"
+            fontSize="var(--font-medium)"
+            backgroundColor="rgba(0, 0, 0, 0.8)"
+            border="2px solid var(--color-red)"
+          >
             로그아웃
           </Button>
         </StButtonsBox>

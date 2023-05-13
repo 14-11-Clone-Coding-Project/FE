@@ -38,6 +38,8 @@ function SignUp() {
               padding="10px"
               fontSize="var(--font-medium)"
               paddingBlock="15px"
+              backgroundColor="rgba(0, 0, 0, 0.8)"
+              border= "2px solid var(--color-red)"
               onClick={signupHandler}
             >
               회원가입

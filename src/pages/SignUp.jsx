@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { signup, duplicateId } from "../core/api/auth/signup";
+import { useCookies } from "react-cookie";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -31,36 +32,49 @@ function SignUp() {
   };
 
   const mutation = useMutation(signup, {
-    async onSuccess(data){
-      console.log('data.status= ', data.status)
-      console.log('data.message= ', data.data.message)
-    },
-    onError(error){
-      console.log(error)
-    }
-  })
-
-  // 중복 체크 함수 
-  const duplicateMutation = useMutation(duplicateId, {
     async onSuccess(data) {
-      console.log('data.status= ', data.status)
-      console.log('data.message= ', data.data.message)
+      if (data.status === 200) {
+        alert("회원가입 되었습니다!");
+      }
+      // console.log("data.status= ", data.status);
+      // console.log("data.message= ", data.data.message);
     },
     onError(error) {
-      console.log(error)
-    }
-  })
+      console.log("error >", error);
+    },
+  });
 
-  const duplicateIdHandler = () =>{
-    duplicateMutation.mutate({memberId})
-  }
+  // 중복 체크 함수
+  const duplicateMutation = useMutation(duplicateId, {
+    async onSuccess(data) {
+      if (!memberId) return alert("아이디를 입력해주세요");
+      if (data.status === 200) alert("사용가능한 아이디입니다");
+      // console.log("data.status= ", data.status);
+      // console.log("data.message= ", data.data.message);
+    },
+    onError(error) {
+      console.log(error);
+      alert("이미 사용중인 아이디입니다!");
+    },
+  });
 
+  //중복된 아이디 체크 버튼
+  const duplicateIdHandler = () => {
+    duplicateMutation.mutate({ memberId });
+  };
+
+  //회원가입 버튼
   const signupHandler = () => {
-    //if user logged in navigate to /login
-    mutation.mutate({
-      memberId,
-      password
-    })
+    if (!memberId || !password) {
+      return alert("아이디와 비밀번호를 적어주세요.");
+    } else if (!duplicateMutation.isSuccess) {
+      return alert("아이디 중복 체크를 해주세요.");
+    } else {
+      mutation.mutate({
+        memberId,
+        password,
+      });
+    }
     navigate("/login");
   };
 
@@ -80,7 +94,9 @@ function SignUp() {
                 value={memberId}
                 onChange={onChangeMemberIdHandler}
               />
-              <Button height="100%" onClick={duplicateIdHandler}>중복확인</Button>
+              <Button height="100%" onClick={duplicateIdHandler}>
+                중복확인
+              </Button>
             </StInputIdBox>
             <StInputPassword
               type="password"
@@ -97,7 +113,7 @@ function SignUp() {
               fontSize="var(--font-medium)"
               paddingBlock="15px"
               backgroundColor="rgba(0, 0, 0, 0.8)"
-              border= "2px solid var(--color-red)"
+              border="2px solid var(--color-red)"
               onClick={signupHandler}
             >
               회원가입

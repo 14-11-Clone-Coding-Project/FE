@@ -10,27 +10,30 @@ import {
   StButtonsBox,
 } from "../styles/Login.styles";
 import Button from "../components/Button/Button";
-import { useQuery, useMutation } from "react-query";
+import { useMutation } from "react-query";
 import { login } from "../core/api/auth/login";
+import { useCookies } from "react-cookie";
 
 function Login() {
   const navigate = useNavigate();
   const [memberId, setMemberId] = useState("");
   const [password, setPassword] = useState("");
 
+  const [cookies, setCookie, removeCookie] = useCookies();
+
   const mutation = useMutation(login, {
     async onSuccess(data) {
-      const { token , response} = data;
+      const { token, response } = data;
       // console.log("token= ", token);
-      console.log(response);
-      console.log('token= ', token);
-      console.log("response.status= ", response.status);
-      console.log("response.message= ", response.data.message);
-      // navigate("/");
+      // const expireTime = new Date(new Date().getTime() + 30 * 60 * 1000);
+      setCookie("Auth", token, { path: "/" });
+      // console.log("response.status= ", response.status);
+      // console.log("response.message= ", response.data.message);
+      alert("로그인 완료되었습니다.");
+      navigate("/");
     },
-
     onError(error) {
-      console.log(error);
+      alert("아이디/비밀번호가 일치하지 않습니다!");
     },
   });
 
@@ -43,14 +46,14 @@ function Login() {
   };
 
   const loginhandler = () => {
-    mutation.mutate({
-      memberId,
-      password,
-    });
-
-    //if user logged in navigate to /
-    // navigate("/");
-    //else navigate to /signup
+    if (!memberId || !password) {
+      alert("아이디와 비밀번호를 입력해주세요");
+    } else {
+      mutation.mutate({
+        memberId,
+        password,
+      });
+    }
   };
 
   return (

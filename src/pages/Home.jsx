@@ -12,13 +12,20 @@ import {
   StButtonsBox,
 } from "../styles/Home.styles";
 import Button from "../components/Button/Button";
+import { useCookies } from "react-cookie";
 
 function Home() {
   const navigate = useNavigate();
+  const [cookies] = useCookies("Auth");
+  const token = cookies.Auth;
 
-  //   useEffect(() => {
-  //     navigate('/login')
-  //   }, [Home]);
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    } else {
+      navigate("/");
+    }
+  }, [token]);
 
   return (
     <StHomeContainer>

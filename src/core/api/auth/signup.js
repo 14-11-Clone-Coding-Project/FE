@@ -6,7 +6,7 @@ const duplicateId = async (memberId) => {
     return response;
   } catch (error) {
     console.log(error);
-    throw error;
+    return error;
   }
 };
 
@@ -15,7 +15,7 @@ const signup = (users) => {
     const response = instance.post("member/signup", users);
     return response;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw error;
   }
 };

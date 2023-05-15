@@ -13,14 +13,13 @@ import {
 } from "../styles/Home.styles";
 import Button from "../components/Button/Button";
 import { getCookie } from "../Cookies/cookie";
-import { sendMessage, receivedMessage } from "../SockJs/SockInstance";
+import { connectClient, sendMessage } from "../SockJs/SockInstance";
 
 function Home() {
   const navigate = useNavigate();
   const token = getCookie("Auth");
 
-  const [stompClient, setStompClient] = useState(null);
-  const [receiveMessage, setReceiveMessage] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
 
   const onChangeMessageHandler = (e) => {
@@ -32,25 +31,43 @@ function Home() {
     setMessage("");
   };
 
+  const receivedMessage = (data) => {
+    console.log("data.body", data.body); //JSON 형식
+    const newData = JSON.parse(data.body); //문자열을 파싱하여 JS 객체로 변환
+    console.log("newData=> ", newData);
+    setMessages((prev) => {
+      const newMessage = {
+        type: "TALK",
+        sender: "user1",
+        message: newData.message,
+      };
+      return [...prev, newMessage];
+    });
+  };
+
   useEffect(() => {
-    if (!token) {
-      navigate("/login");
+    //토큰이 있을 경우
+    if (token) {
+      connectClient(receivedMessage);
     } else {
-      navigate("/");
+      navigate("/login");
     }
   }, [token]);
 
-  useEffect(() =>{
-    console.log(receivedMessage())
-    receivedMessage()
-  },[])
+  // console.log(messages);
 
   return (
     <StHomeContainer>
       {/* left */}
       <StLeftBox>
         <StChattingBox>
-          <StChattingDisplay>채팅창</StChattingDisplay>
+          <StChattingDisplay>
+            {messages.map((message, index) => (
+              <p style={{ color: "white" }} key={index}>
+                {message.message}
+              </p>
+            ))}
+          </StChattingDisplay>
           <StChattingInput>
             <StInput
               type="text"

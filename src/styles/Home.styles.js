@@ -21,6 +21,7 @@ export const StChattingDisplay = styled.div`
   border: 2px solid var(--color-red);
   height: 90%;
   background-color: rgba(0, 0, 0, 0.8);
+  overflow: auto;
 `;
 export const StChattingInput = styled.div`
   /* border: 1px solid red;   */

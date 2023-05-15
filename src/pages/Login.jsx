@@ -13,13 +13,14 @@ import Button from "../components/Button/Button";
 import { useMutation } from "react-query";
 import { login } from "../core/api/auth/login";
 import { useCookies } from "react-cookie";
+import { connect } from "../SockJs/SockInstance";
 
 function Login() {
   const navigate = useNavigate();
   const [memberId, setMemberId] = useState("");
   const [password, setPassword] = useState("");
 
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies, setCookie, removeCookie, getCookie] = useCookies();
 
   const mutation = useMutation(login, {
     async onSuccess(data) {
@@ -27,9 +28,12 @@ function Login() {
       // console.log("token= ", token);
       // const expireTime = new Date(new Date().getTime() + 30 * 60 * 1000);
       setCookie("Auth", token, { path: "/" });
+      
       // console.log("response.status= ", response.status);
       // console.log("response.message= ", response.data.message);
       alert("로그인 완료되었습니다.");
+      //연결 로직
+      connect();
       navigate("/");
     },
     onError(error) {

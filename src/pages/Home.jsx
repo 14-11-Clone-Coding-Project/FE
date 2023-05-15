@@ -13,6 +13,7 @@ import {
 } from "../styles/Home.styles";
 import Button from "../components/Button/Button";
 import { useCookies } from "react-cookie";
+import { connect } from "../SockJs/SockInstance";
 
 function Home() {
   const navigate = useNavigate();
@@ -32,7 +33,9 @@ function Home() {
       {/* left */}
       <StLeftBox>
         <StChattingBox>
-          <StChattingDisplay>채팅창</StChattingDisplay>
+          <StChattingDisplay>
+            <h1>채팅창</h1>
+          </StChattingDisplay>
           <StChattingInput>
             <StInput />
             <Button

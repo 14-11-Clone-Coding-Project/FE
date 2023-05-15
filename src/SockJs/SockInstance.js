@@ -4,7 +4,7 @@ import { getCookie } from "../Cookies/cookie";
 
 let stompClient = null;
 
-const connect = () => {
+const connectClient = () => {
   const socket = new SockJS("http://13.125.188.38:8080/ws-edit");
   stompClient = Stomp.over(() => socket);
   stompClient.connect(
@@ -17,18 +17,30 @@ const connect = () => {
     function (frame) {
       //   console.log(frame);
       console.log("frame= 연결 성공");
-      stompClient.subscribe("/sub/chat/room", function (message) {
-        console.log(message.body.sender)
-      });
+      stompClient.subscribe("/sub/chat/room", receivedMessage);
     }
   );
 };
 
-// function showGreeting(message) {
-//   alert(message);
-// }
+const receivedMessage = (text) => {
+  console.log("text= ", text);
+  console.log("text body= ", text.body);
+};
 
-export { connect };
+const sendMessage = async (payload) => {
+  const text = {
+    type: "TALK",
+    sender: "user1",
+    message: payload,
+  };
+
+  await stompClient.send("/pub/chat/send", {}, JSON.stringify(text));
+  console.log(stompClient);
+};
+
+console.log(stompClient);
+
+export { connectClient, sendMessage, receivedMessage };
 
 // var client = Stomp.over(function () {
 //   return new WebSocket("ws://localhost:15674/ws");

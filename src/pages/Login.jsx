@@ -13,7 +13,7 @@ import Button from "../components/Button/Button";
 import { useMutation } from "react-query";
 import { login } from "../core/api/auth/login";
 import { useCookies } from "react-cookie";
-import { connect } from "../SockJs/SockInstance";
+import { connectClient } from "../SockJs/SockInstance";
 
 function Login() {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ function Login() {
       // console.log("response.message= ", response.data.message);
       alert("로그인 완료되었습니다.");
       //연결 로직
-      connect();
+      connectClient();
       navigate("/");
     },
     onError(error) {

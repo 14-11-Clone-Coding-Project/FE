@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   StHomeContainer,
@@ -12,13 +12,25 @@ import {
   StButtonsBox,
 } from "../styles/Home.styles";
 import Button from "../components/Button/Button";
-import { useCookies } from "react-cookie";
-import { connect } from "../SockJs/SockInstance";
+import { getCookie } from "../Cookies/cookie";
+import { sendMessage, receivedMessage } from "../SockJs/SockInstance";
 
 function Home() {
   const navigate = useNavigate();
-  const [cookies] = useCookies("Auth");
-  const token = cookies.Auth;
+  const token = getCookie("Auth");
+
+  const [stompClient, setStompClient] = useState(null);
+  const [receiveMessage, setReceiveMessage] = useState([]);
+  const [message, setMessage] = useState("");
+
+  const onChangeMessageHandler = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const sendMessageHandler = () => {
+    sendMessage(message);
+    setMessage("");
+  };
 
   useEffect(() => {
     if (!token) {
@@ -28,22 +40,30 @@ function Home() {
     }
   }, [token]);
 
+  useEffect(() =>{
+    console.log(receivedMessage())
+    receivedMessage()
+  },[])
+
   return (
     <StHomeContainer>
       {/* left */}
       <StLeftBox>
         <StChattingBox>
-          <StChattingDisplay>
-            <h1>채팅창</h1>
-          </StChattingDisplay>
+          <StChattingDisplay>채팅창</StChattingDisplay>
           <StChattingInput>
-            <StInput />
+            <StInput
+              type="text"
+              value={message}
+              onChange={onChangeMessageHandler}
+            />
             <Button
               width="20%"
               height="100%"
               fontSize="var(--font-medium)"
               backgroundColor="rgba(0, 0, 0, 0.8)"
               border="2px solid var(--color-red)"
+              onClick={sendMessageHandler}
             >
               전송
             </Button>

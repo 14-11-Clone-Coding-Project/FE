@@ -22,7 +22,6 @@ const connectClient = (receivedMessage) => {
         {},
         JSON.stringify({
           sender: JSON.parse(localStorage.getItem("sender")),
-          message: "hi",
         })
       );
     }

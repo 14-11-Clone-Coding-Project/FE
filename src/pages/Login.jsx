@@ -13,7 +13,6 @@ import Button from "../components/Button/Button";
 import { useMutation } from "react-query";
 import { login } from "../core/api/auth/login";
 import { useCookies } from "react-cookie";
-import { connectClient } from "../SockJs/SockInstance";
 
 function Login() {
   const navigate = useNavigate();
@@ -31,8 +30,6 @@ function Login() {
       setCookie("Auth", token, { path: "/" }); // 토큰 쿠키에 저장
       localStorage.setItem("sender", JSON.stringify(memberId)); // 서버에서 받아온 유저 데이터 localstorage에 저장
       alert("로그인 완료되었습니다.");
-      //연결 로직
-      connectClient();
       navigate("/");
     },
     onError(error) {

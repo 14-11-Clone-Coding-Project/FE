@@ -14,31 +14,38 @@ import {
 import Button from "../components/Button/Button";
 import { getCookie } from "../Cookies/cookie";
 import { connectClient, sendMessage } from "../SockJs/SockInstance";
+import { useSelector } from "react-redux";
 
 function Home() {
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
+
   const navigate = useNavigate();
   const token = getCookie("Auth");
 
-  const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState("");
+  const member = useSelector((state) => state.members[0]);
+  console.log("member=> ", member);
 
   const onChangeMessageHandler = (e) => {
     setMessage(e.target.value);
   };
 
   const sendMessageHandler = () => {
-    sendMessage(message);
+    sendMessage({
+      sender: member,
+      message,
+    });
     setMessage("");
   };
 
   const receivedMessage = (data) => {
-    console.log("data.body", data.body); //JSON 형식
+    console.log("data.body*********", data.body); //JSON 형식
     const newData = JSON.parse(data.body); //문자열을 파싱하여 JS 객체로 변환
     console.log("newData=> ", newData);
     setMessages((prev) => {
       const newMessage = {
         type: "TALK",
-        sender: "user1",
+        sender: newData.sender,
         message: newData.message,
       };
       return [...prev, newMessage];
@@ -63,8 +70,17 @@ function Home() {
         <StChattingBox>
           <StChattingDisplay>
             {messages.map((message, index) => (
-              <p style={{ color: "white" }} key={index}>
-                {message.message}
+              <p
+                style={{
+                  color:
+                    message.sender === message.sender
+                      ? "var(--color-yellow)"
+                      : "var(--color-green)",
+                  fontSize: "20px",
+                }}
+                key={index}
+              >
+                {message.sender}: {message.message}
               </p>
             ))}
           </StChattingDisplay>

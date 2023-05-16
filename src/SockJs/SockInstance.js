@@ -25,8 +25,8 @@ const connectClient = (receivedMessage) => {
 const sendMessage = async (payload) => {
   const text = {
     type: "TALK",
-    sender: "user1",
-    message: payload,
+    sender: payload.sender,
+    message: payload.message,
   };
 
   await stompClient.send("/pub/chat/send", {}, JSON.stringify(text));

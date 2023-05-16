@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   StHomeContainer,
@@ -13,11 +13,17 @@ import {
 } from "../styles/Home.styles";
 import Button from "../components/Button/Button";
 import { getCookie } from "../Cookies/cookie";
-import { connectClient, sendMessage } from "../SockJs/SockInstance";
+import {
+  connectClient,
+  sendMessage,
+  disconnectClient,
+} from "../SockJs/SockInstance";
 
 function Home() {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+  const [memberList, setMemberList] = useState([]);
+  const chatDisplayRef = useRef(null);
 
   const navigate = useNavigate();
   const token = getCookie("Auth");
@@ -37,10 +43,18 @@ function Home() {
     setMessage("");
   };
 
-  const receivedMessage = (data) => {
-    console.log("data.body*********", data.body); //JSON 형식
+  const getChattingData = (data) => {
+    // console.log("data.body*********", data.body); //JSON 형식
     const newData = JSON.parse(data.body); //문자열을 파싱하여 JS 객체로 변환
     console.log("newData=> ", newData);
+
+    if (newData.chatUserList) {
+      const newMembers = newData.chatUserList.filter((user) => !memberList.includes(user));
+      setMemberList((prevMembers) => [...prevMembers, ...newMembers]);
+    }
+
+    setMemberList(newData.chatUserList);
+
     setMessages((prev) => {
       const newMessage = {
         sender: newData.sender,
@@ -53,24 +67,30 @@ function Home() {
 
   useEffect(() => {
     //토큰이 있을 경우 서버 연결
+    console.log("첫번째 렌더링");
     if (token) {
-      connectClient(receivedMessage);
+      connectClient(getChattingData);
     } else {
       navigate("/login");
     }
-  }, [token]);
+  }, []);
 
-  // console.log(messages);
+  // 메시지가 추가될 때마다 자동 스크롤
+  useEffect(() => {
+    const chatDisplayElement = chatDisplayRef.current;
+    chatDisplayElement.scrollTop = chatDisplayElement.scrollHeight;
+  }, [messages]);
 
   return (
     <StHomeContainer>
       {/* left */}
       <StLeftBox>
         <StChattingBox onSubmit={sendMessageHandler}>
-          <StChattingDisplay>
+          <StChattingDisplay ref={chatDisplayRef}>
             {messages.map((message, index) => (
               <p
                 style={{
+                  marginBottom: "10px",
                   color:
                     message.sender === member
                       ? "var(--color-green)"
@@ -79,9 +99,11 @@ function Home() {
                 }}
                 key={index}
               >
-                {message.sys
-                  ? message.message
-                  : `${message.sender}: ${message.message}`}
+                {message.sys ? (
+                  <span style={{ color: "white" }}>{message.message}</span>
+                ) : (
+                  `${message.sender}: ${message.message}`
+                )}
               </p>
             ))}
           </StChattingDisplay>
@@ -89,6 +111,7 @@ function Home() {
             <StInput
               type="text"
               value={message}
+              placeholder=">"
               onChange={onChangeMessageHandler}
             />
             <Button
@@ -108,11 +131,13 @@ function Home() {
       <StRightBox>
         <StUserList>
           <h1>유저리스트</h1>
-          <ul>
-            <li>user1</li>
-            <li>user2</li>
-            <li>user3</li>
-          </ul>
+          {memberList.map((member, index) => {
+            return (
+              <ul key={index}>
+                <li>{member}</li>
+              </ul>
+            );
+          })}
         </StUserList>
 
         <StButtonsBox>
@@ -131,6 +156,12 @@ function Home() {
             fontSize="var(--font-medium)"
             backgroundColor="rgba(0, 0, 0, 0.8)"
             border="2px solid var(--color-red)"
+            onClick={() => {
+              disconnectClient();
+              setTimeout(() => {
+                navigate("/login");
+              }, 700);
+            }}
           >
             로그아웃
           </Button>

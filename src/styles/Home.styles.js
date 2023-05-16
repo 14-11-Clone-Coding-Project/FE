@@ -22,7 +22,25 @@ export const StChattingDisplay = styled.div`
   height: 90%;
   background-color: rgba(0, 0, 0, 0.8);
   overflow: auto;
+  padding: 15px;
+
+  &::-webkit-scrollbar {
+    width: 15px; /* 스크롤 바 너비 */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    /* 스크롤바 색상 */
+    /* border: 2px solid var(--color-red); */
+    background-color: rgba(108, 0, 0, 0.8);
+  }
+
+  &::-webkit-scrollbar-track {
+    /* 스크롤 바 트랙 색상 */
+    border-left: 2px solid rgba(108, 0, 0); 
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 `;
+
 export const StChattingInput = styled.div`
   /* border: 1px solid red;   */
   height: 10%;
@@ -53,6 +71,23 @@ export const StUserList = styled.div`
   flex-direction: column;
   height: 75%;
   gap: 20px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 15px; /* 스크롤 바 너비 */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    /* 스크롤바 색상 */
+    /* border: 2px solid var(--color-red); */
+    background-color: rgba(108, 0, 0, 0.8);
+  }
+
+  &::-webkit-scrollbar-track {
+    /* 스크롤 바 트랙 색상 */
+    border-left: 2px solid rgba(108, 0, 0); 
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 
   h1 {
     font-size: 35px;

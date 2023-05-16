@@ -25,8 +25,6 @@ function Login() {
     async onSuccess(data) {
       const { response, token, memberId } = data;
       console.log("memberId= ", memberId);
-      // dispatch(setMember(memberId)); // 리덕스에 저장해서 전역 상태로 관리
-      // const expireTime = new Date(new Date().getTime() + 30 * 60 * 1000);
       setCookie("Auth", token, { path: "/" }); // 토큰 쿠키에 저장
       localStorage.setItem("sender", JSON.stringify(memberId)); // 서버에서 받아온 유저 데이터 localstorage에 저장
       alert("로그인 완료되었습니다.");

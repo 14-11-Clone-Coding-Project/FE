@@ -12,7 +12,7 @@ export const StLeftBox = styled.div`
   /* border: 1px solid blue; */
   width: 60%;
 `;
-export const StChattingBox = styled.div`
+export const StChattingBox = styled.form`
   border: 2px solid var(--color-red);
   width: 100%;
   height: 100%;

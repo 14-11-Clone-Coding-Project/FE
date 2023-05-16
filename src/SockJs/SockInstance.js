@@ -16,15 +16,29 @@ const connectClient = (receivedMessage) => {
     //WebSocket 연결이 성공했을 때 실행될 콜백 함수 -> frame 매개변수는 연결에 대한 정보를 담은 STOMP 프로토콜 프레임.
     function (frame) {
       console.log("frame= 연결 성공");
-
       stompClient.subscribe("/sub/chat/room", receivedMessage);
+      stompClient.send(
+        "/pub/chat/enter",
+        {},
+        JSON.stringify({
+          sender: JSON.parse(localStorage.getItem("sender")),
+          message: "hi",
+        })
+      );
     }
   );
 };
 
+// const sendGreetings = async (payload) => {
+//   const greetings = {
+//     sender: payload.sender,
+//     message: payload.message,
+//   };
+//   await stompClient.sent("/pub/chat/enter", {}, JSON.stringify(greetings));
+// };
+
 const sendMessage = async (payload) => {
   const text = {
-    type: "TALK",
     sender: payload.sender,
     message: payload.message,
   };
@@ -32,9 +46,4 @@ const sendMessage = async (payload) => {
   await stompClient.send("/pub/chat/send", {}, JSON.stringify(text));
 };
 
-
 export { connectClient, sendMessage };
-
-// var client = Stomp.over(function () {
-//   return new WebSocket("ws://localhost:15674/ws");
-// });

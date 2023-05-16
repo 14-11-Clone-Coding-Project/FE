@@ -14,7 +14,6 @@ import {
 import Button from "../components/Button/Button";
 import { getCookie } from "../Cookies/cookie";
 import { connectClient, sendMessage } from "../SockJs/SockInstance";
-import { useSelector } from "react-redux";
 
 function Home() {
   const [messages, setMessages] = useState([]);
@@ -23,14 +22,14 @@ function Home() {
   const navigate = useNavigate();
   const token = getCookie("Auth");
 
-  const member = useSelector((state) => state.members[0]);
-  console.log("member=> ", member);
+  const member = JSON.parse(localStorage.getItem("sender"));
 
   const onChangeMessageHandler = (e) => {
     setMessage(e.target.value);
   };
 
-  const sendMessageHandler = () => {
+  const sendMessageHandler = (e) => {
+    e.preventDefault();
     sendMessage({
       sender: member,
       message,
@@ -44,16 +43,16 @@ function Home() {
     console.log("newData=> ", newData);
     setMessages((prev) => {
       const newMessage = {
-        type: "TALK",
         sender: newData.sender,
         message: newData.message,
+        sys: newData.sys,
       };
       return [...prev, newMessage];
     });
   };
 
   useEffect(() => {
-    //토큰이 있을 경우
+    //토큰이 있을 경우 서버 연결
     if (token) {
       connectClient(receivedMessage);
     } else {
@@ -67,20 +66,22 @@ function Home() {
     <StHomeContainer>
       {/* left */}
       <StLeftBox>
-        <StChattingBox>
+        <StChattingBox onSubmit={sendMessageHandler}>
           <StChattingDisplay>
             {messages.map((message, index) => (
               <p
                 style={{
                   color:
-                    message.sender === message.sender
-                      ? "var(--color-yellow)"
-                      : "var(--color-green)",
+                    message.sender === member
+                      ? "var(--color-green)"
+                      : "var(--color-yellow)",
                   fontSize: "20px",
                 }}
                 key={index}
               >
-                {message.sender}: {message.message}
+                {message.sys
+                  ? message.message
+                  : `${message.sender}: ${message.message}`}
               </p>
             ))}
           </StChattingDisplay>
@@ -96,7 +97,6 @@ function Home() {
               fontSize="var(--font-medium)"
               backgroundColor="rgba(0, 0, 0, 0.8)"
               border="2px solid var(--color-red)"
-              onClick={sendMessageHandler}
             >
               전송
             </Button>

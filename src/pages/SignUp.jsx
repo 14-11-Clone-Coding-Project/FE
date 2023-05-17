@@ -15,13 +15,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { signup, duplicateId } from "../core/api/auth/signup";
-import { useCookies } from "react-cookie";
 
 function SignUp() {
   const navigate = useNavigate();
 
   const [memberId, setMemberId] = useState("");
   const [password, setPassword] = useState("");
+  const [duplicateCheck, setDuplicateCheck] = useState(false);
 
   const onChangeMemberIdHandler = (e) => {
     setMemberId(e.target.value);
@@ -31,30 +31,30 @@ function SignUp() {
     setPassword(e.target.value);
   };
 
+  // 회원가입 함수
   const mutation = useMutation(signup, {
     async onSuccess(data) {
       if (data.status === 200) {
         alert("회원가입 되었습니다!");
       }
-      // console.log("data.status= ", data.status);
-      // console.log("data.message= ", data.data.message);
     },
     onError(error) {
-      console.log("error >", error);
+      console.log("SignUp Error>>> ", error);
     },
   });
 
   // 중복 체크 함수
   const duplicateMutation = useMutation(duplicateId, {
     async onSuccess(data) {
-      if (!memberId) return alert("아이디를 입력해주세요");
-      if (data.status === 200) alert("사용가능한 아이디입니다");
-      // console.log("data.status= ", data.status);
-      // console.log("data.message= ", data.data.message);
+      setDuplicateCheck(true);
+      if (!memberId) alert("아이디를 입력해주세요");
+      if (data.status === 200) {
+        alert("사용 가능한 아이디입니다");
+      }
     },
     onError(error) {
-      console.log(error);
-      alert("이미 사용중인 아이디입니다!");
+      console.log("Duplicate Error>>> ", error);
+      alert("이미 사용중인 아이디입니다!")
     },
   });
 
@@ -67,7 +67,7 @@ function SignUp() {
   const signupHandler = () => {
     if (!memberId || !password) {
       return alert("아이디와 비밀번호를 적어주세요.");
-    } else if (!duplicateMutation.isSuccess) {
+    } else if (!duplicateCheck) {
       return alert("아이디 중복 체크를 해주세요.");
     } else {
       mutation.mutate({
@@ -75,6 +75,7 @@ function SignUp() {
         password,
       });
     }
+    console.log("duplicatecheck", duplicateCheck);
     navigate("/login");
   };
 

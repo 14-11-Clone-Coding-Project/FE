@@ -36,6 +36,10 @@ function Home() {
 
   const sendMessageHandler = (e) => {
     e.preventDefault();
+    // Input 막기   
+    if (message.trim() === "") {
+      return;
+    }
     sendMessage({
       sender: member,
       message,

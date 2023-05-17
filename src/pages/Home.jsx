@@ -163,7 +163,7 @@ function Home() {
               }, 700);
             }}
           >
-            로그아웃
+            나가기
           </Button>
         </StButtonsBox>
       </StRightBox>

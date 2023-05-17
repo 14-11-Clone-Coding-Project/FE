@@ -19,7 +19,7 @@ function Login() {
   const [memberId, setMemberId] = useState("");
   const [password, setPassword] = useState("");
 
-  const [cookies, setCookie, removeCookie, getCookie] = useCookies();
+  const [cookies, setCookie] = useCookies();
 
   const mutation = useMutation(login, {
     async onSuccess(data) {

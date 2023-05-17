@@ -43,6 +43,7 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        cursor: url(https://cur.cursors-4u.net/cursors/cur-1/cur4.cur), auto !important;
     }
 
     body{

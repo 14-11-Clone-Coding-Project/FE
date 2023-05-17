@@ -5,7 +5,7 @@ import { getCookie, removeCookie } from "../Cookies/cookie";
 let stompClient = null;
 
 const connectClient = (getChattingData) => {
-  const socket = new SockJS("http://13.125.188.38:8080/ws-edit");
+  const socket = new SockJS(`${process.env.REACT_APP_SERVER_URL}/ws-edit`);
   stompClient = Stomp.over(() => socket);
   stompClient.connect(
     {

@@ -18,6 +18,7 @@ import {
   sendMessage,
   disconnectClient,
 } from "../SockJs/SockInstance";
+import audio from "../audio/main.mp3";
 
 function Home() {
   const [messages, setMessages] = useState([]);
@@ -87,6 +88,7 @@ function Home() {
 
   return (
     <StHomeContainer>
+      <audio src={audio} loop autoPlay />
       {/* left */}
       <StLeftBox>
         <StChattingBox onSubmit={sendMessageHandler}>
@@ -147,16 +149,7 @@ function Home() {
         <StButtonsBox>
           <Button
             width="50%"
-            height="45%"
-            fontSize="var(--font-medium)"
-            backgroundColor="rgba(0, 0, 0, 0.8)"
-            border="2px solid var(--color-red)"
-          >
-            버그신고
-          </Button>
-          <Button
-            width="50%"
-            height="45%"
+            height="100%"
             fontSize="var(--font-medium)"
             backgroundColor="rgba(0, 0, 0, 0.8)"
             border="2px solid var(--color-red)"

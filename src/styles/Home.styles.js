@@ -104,12 +104,7 @@ export const StUserList = styled.div`
 `;
 
 export const StButtonsBox = styled.div`
-  height: 20%;
+  height: 10%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  button:nth-child(2) {
-    align-self: flex-end;
-  }
+  justify-content: right;
 `;

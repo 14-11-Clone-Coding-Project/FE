@@ -72,11 +72,10 @@ function Home() {
 
   useEffect(() => {
     //토큰이 있을 경우 서버 연결
-    console.log("첫번째 렌더링");
     if (token) {
       connectClient(getChattingData);
     } else {
-      navigate("/login");
+      navigate("/start");
     }
   }, []);
 
@@ -88,7 +87,7 @@ function Home() {
 
   return (
     <StHomeContainer>
-      <audio src={audio} loop autoPlay />
+      {/* <audio src={audio} loop autoPlay /> */}
       {/* left */}
       <StLeftBox>
         <StChattingBox onSubmit={sendMessageHandler}>

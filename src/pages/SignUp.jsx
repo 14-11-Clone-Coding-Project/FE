@@ -47,14 +47,13 @@ function SignUp() {
   const duplicateMutation = useMutation(duplicateId, {
     async onSuccess(data) {
       setDuplicateCheck(true);
-      if (!memberId) alert("아이디를 입력해주세요");
-      if (data.status === 200) {
-        alert("사용 가능한 아이디입니다");
-      }
+      if (memberId === "") alert("아이디를 입력해주세요");
+      if (memberId.trim("")) alert("사용 불가한 아이디입니다");
+      if (data.status === 200) return alert("사용 가능한 아이디입니다");
     },
     onError(error) {
       console.log("Duplicate Error>>> ", error);
-      alert("이미 사용중인 아이디입니다!")
+      alert(error.response.data.message);
     },
   });
 

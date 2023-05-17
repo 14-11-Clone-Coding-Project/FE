@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import YoutubeBackground from "react-youtube-background";
 import { useNavigate } from "react-router-dom";
 import audio from "../audio/main.mp3";
@@ -11,7 +11,7 @@ function Start() {
 
   useEffect(() => {
     if (isMounted && containerWidth > 0) {
-      navigate("/Start");
+      navigate("/start");
     }
   }, [containerWidth, isMounted, navigate]);
 

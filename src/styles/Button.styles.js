@@ -9,5 +9,9 @@ export const StButton = styled.button`
   color: var(--color-green);
   font-weight: var(--weight-semi-bold);
   background-color: ${(props) => props.backgroundColor || "none"};
-  height: ${(props) => props.height}
+  height: ${(props) => props.height};
+
+  &:hover{
+    color: var(--color-hover);
+  }
 `;

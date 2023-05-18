@@ -116,7 +116,6 @@ function Home() {
             <StInput
               type="text"
               value={message}
-              placeholder=">"
               onChange={onChangeMessageHandler}
             />
             <Button

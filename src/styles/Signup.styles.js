@@ -53,7 +53,7 @@ export const StInputId = styled.input`
   padding: 20px;
   color: var(--color-green);
   font-size: 20px;
-  width: 85%;
+  width: 80%;
 `;
 
 export const StInputPassword = styled.input`

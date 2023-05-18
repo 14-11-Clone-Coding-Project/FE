@@ -12,10 +12,12 @@ export const GlobalStyles = createGlobalStyle`
         --color-gray: #fafafa;
         --color-blue: #0827F5;
         --color-light-gray: #8AA1AB;
-        --color-yellow: #FFCD29; //user
+        --color-yellow: #FFCD29; // visitor
         --color-dark-red: #D60F01;
         --color-red: #6C0000;
-        --color-green: #4CC428; //visitor
+        --color-green: #4CC428; // user
+        --color-hover: #00FF00;
+
 
         /* Font size */
         --font-extra-large: 60px;

@@ -49,13 +49,6 @@ export const StInputIdBox = styled.div`
   display: flex;
 `;
 
-export const StInputId = styled.input`
-  padding: 20px;
-  color: var(--color-green);
-  font-size: 20px;
-  width: 85%;
-`;
-
 export const StInput = styled.input`
   border: 2px solid var(--color-red);
   padding: 20px;

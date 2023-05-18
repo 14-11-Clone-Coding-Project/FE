@@ -47,8 +47,8 @@ function SignUp() {
   const duplicateMutation = useMutation(duplicateId, {
     async onSuccess(data) {
       setDuplicateCheck(true);
-      if (memberId === "") alert("아이디를 입력해주세요");
-      if (memberId.trim("")) alert("사용 불가한 아이디입니다");
+      if (memberId === "" || memberId.trim() === "") alert("아이디를 입력해주세요");
+      // if (memberId.trim() === "") alert("아이디를 입력해주세요");
       if (data.status === 200) return alert("사용 가능한 아이디입니다");
     },
     onError(error) {
@@ -95,7 +95,7 @@ function SignUp() {
                 onChange={onChangeMemberIdHandler}
               />
               <Button height="100%" onClick={duplicateIdHandler}>
-                중복확인
+                아이디 확인
               </Button>
             </StInputIdBox>
             <StInputPassword

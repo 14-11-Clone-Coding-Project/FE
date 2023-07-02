@@ -2,7 +2,9 @@
 
 ## 항해99 14기 클론코딩 - 11조
 
-![Uploading image.gif…]()
+![image 복사본](https://github.com/14-11-Clone-Coding-Project/FE/assets/112850163/7c34c1c5-2b83-454d-9f75-667649e5656d)
+
+
 
 
 ## 1. 프로젝트 주제

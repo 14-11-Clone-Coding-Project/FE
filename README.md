@@ -23,10 +23,10 @@
 # 🤔 기술적 의사 결정
 
 사용 기술	결정 이유
-| First Header | Second Header |
+| 사용 기술 | 결정 이유 |
 | ------------ | ------------- |
-| Content Cell | Content Cell  |
-| Content Cell | Content Cell  |
+| sock.js | Content Cell  |
+| stomp | Content Cell  |
 
 # 📌 트러블슈팅
 
